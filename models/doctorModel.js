@@ -15,7 +15,7 @@ const doctorSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      required: [true, "phone no is required"],
+      required: [true, "mobile number is required"],
     },
     email: {
       type: String,
@@ -46,7 +46,7 @@ const doctorSchema = new mongoose.Schema(
     },
     timings: {
       type: Object,
-      required: [true, "wrok timing is required"],
+      required: [true, "work timing is required"],
     },
   },
   { timestamps: true }

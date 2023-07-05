@@ -45,7 +45,7 @@ const Users = () => {
       dataIndex: "actions",
       render: (text, record) => (
         <div className="flex">
-          <button className="btn btn-danger">Block`</button>
+          <button className="btn btn-danger">Block</button>
         </div>
       ),
     },

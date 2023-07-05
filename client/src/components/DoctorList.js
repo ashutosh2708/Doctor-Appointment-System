@@ -6,7 +6,7 @@ const DoctorList = ({ doctor }) => {
   return (
     <>
       <div
-        className="bg-white shadow-1 p-5 rounded-lg border w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition"
+        className="bg-white shadow-1 p-3 rounded-lg border w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition"
         style={{ cursor: "pointer" }}
         onClick={() => navigate(`/doctor/book-appointment/${doctor._id}`)}
       >
@@ -14,18 +14,18 @@ const DoctorList = ({ doctor }) => {
           Dr. {doctor.firstName} {doctor.lastName}
           </h2>
         <div className="">
-          <p>
+          <h5 className="mb-2">
             <b>Specialization</b> - {doctor.specialization}
-          </p>
-          <p>
+          </h5>
+          <h5 className="mb-2">
             <b>Experience</b> - {doctor.experience} years
-          </p>
-          <p>
+          </h5>
+          <h5 className="mb-2">
             <b>Fees Per Cunsaltation</b> - {doctor.feesPerCunsaltation}
-          </p>
-          <p>
+          </h5>
+          <h5 className="mb-2">
             <b>Timings</b> - {doctor.timings[0]} - {doctor.timings[1]}
-          </p>
+          </h5>
         </div>
       </div>
     </>

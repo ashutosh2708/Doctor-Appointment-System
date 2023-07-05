@@ -3,9 +3,10 @@ import Layout from "../components/Layout";
 import { Col, Form, Input, Row, TimePicker, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { showLoading, hideLoading } from "../redux/features/alterSlice";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import axios from "axios";
 import moment from "moment";
+
 const ApplyDoctor = () => {
   const { user } = useSelector((state) => state.user);
 
@@ -74,12 +75,12 @@ const ApplyDoctor = () => {
           </Col>
           <Col xs={24} md={24} lg={8}>
             <Form.Item
-              label="Phone No"
+              label="Mobile No."
               name="phone"
               required
               rules={[{ required: true }]}
             >
-              <Input type="text" placeholder="your contact no" />
+              <Input type="text" placeholder="your mobile number" />
             </Form.Item>
           </Col>
           <Col xs={24} md={24} lg={8}>
@@ -132,7 +133,7 @@ const ApplyDoctor = () => {
           </Col>
           <Col xs={24} md={24} lg={8}>
             <Form.Item
-              label="Fees Per Cunsaltation"
+              label="Fees Per Cunsultation"
               name="feesPerCunsaltation"
               required
               rules={[{ required: true }]}
@@ -145,9 +146,8 @@ const ApplyDoctor = () => {
               <TimePicker.RangePicker format="HH:mm" />
             </Form.Item>
           </Col>
-          <Col xs={24} md={24} lg={8}></Col>
           <Col xs={24} md={24} lg={8}>
-            <button className="btn btn-primary form-btn" type="submit">
+            <button className="btn btn-primary form-btn bg-blue-700" type="submit">
               Submit
             </button>
           </Col>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IconButton, TextField, InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { showLoading, hideLoading } from "../redux/features/alterSlice";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { message } from "antd";
@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const Login2 = () => {
+const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -156,4 +156,4 @@ const Login2 = () => {
   );
 };
 
-export default Login2;
+export default Login;

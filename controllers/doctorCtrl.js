@@ -14,7 +14,7 @@ const getDoctorInfoController = async (req, res) => {
     res.status(500).send({
       success: false,
       error,
-      message: "Error in Fetching Doctor Details",
+      message: "Error in fetching doctor details",
     });
   }
 };
@@ -28,14 +28,14 @@ const updateProfileController = async (req, res) => {
     );
     res.status(201).send({
       success: true,
-      message: "Doctor Profile Updated",
+      message: "Doctor profile updated",
       data: doctor,
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Doctor Profile Update issue",
+      message: "Doctor profile update issue",
       error,
     });
   }
@@ -47,7 +47,7 @@ const getDoctorByIdController = async (req, res) => {
     const doctor = await doctorModel.findOne({ _id: req.body.doctorId });
     res.status(200).send({
       success: true,
-      message: "Single Doctor Information Fetched",
+      message: "Single doctor information fetched",
       data: doctor,
     });
   } catch (error) {
@@ -68,7 +68,7 @@ const doctorAppointmentsController = async (req, res) => {
     });
     res.status(200).send({
       success: true,
-      message: "Doctor Appointments Fetch Successfully",
+      message: "Doctor appointments fetch successfully",
       data: appointments,
     });
   } catch (error) {
@@ -89,8 +89,8 @@ const updateStatusController = async (req, res) => {
       { status }
     );
     const user = await userModel.findOne({ _id: appointments.userId });
-    const notifcation = user.notifcation;
-    notifcation.push({
+    const notification = user.notification;
+    notification.push({
       type: "status-updated",
       message: `Your appointment has been updated ${status}`,
       onCLickPath: "/doctor-appointments",
@@ -98,14 +98,14 @@ const updateStatusController = async (req, res) => {
     await user.save();
     res.status(200).send({
       success: true,
-      message: "Appointment Status Updated",
+      message: "Appointment status updated",
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
       error,
-      message: "Error In Update Status",
+      message: "Error in update status",
     });
   }
 };

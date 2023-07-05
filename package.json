@@ -25,5 +25,8 @@
     "mongoose": "^7.3.0",
     "morgan": "^1.10.0",
     "nodemon": "^1.14.9"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }

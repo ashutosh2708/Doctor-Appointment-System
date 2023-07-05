@@ -9,7 +9,6 @@ const HomePage = () => {
     try {
       const res = await axios.get(
         "/api/v1/user/getAllDoctors",
-
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -30,7 +29,7 @@ const HomePage = () => {
   return (
     <Layout>
       <h1 className="text-center py-3 font-medium text-xl">Home Page</h1>
-      <div className="grid lg:grid-cols-4 gap-4 p-4">
+      <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
         {doctors && doctors.map((doctor) => <DoctorList doctor={doctor} />)}
       </div>
     </Layout>

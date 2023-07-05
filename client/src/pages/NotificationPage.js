@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import { message, Tabs } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { showLoading, hideLoading } from "../redux/features/alterSlice";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -28,13 +28,14 @@ const NotificationPage = () => {
       dispatch(hideLoading());
       if (res.data.success) {
         message.success(res.data.message);
+        window.location.reload();
       } else {
         message.error(res.data.message);
       }
     } catch (error) {
       dispatch(hideLoading());
       console.log(error);
-      message.error("somthing went wrong");
+      message.error("Somthing went wrong");
     }
   };
 
@@ -60,7 +61,7 @@ const NotificationPage = () => {
     } catch (error) {
       dispatch(hideLoading());
       console.log(error);
-      message.error("Somthing Went Wrong In Ntifications");
+      message.error("Somthing went wrong in notifications");
     }
   };
   const { TabPane } = Tabs;
@@ -77,16 +78,16 @@ const NotificationPage = () => {
               Mark All Read
             </h4>
           </div>
-          {user?.notifcation.map((notificationMgs) => (
+          {user?.notification.map((notificationMsg) => (
             <div
               className="border text-base font-normal p-2 rounded-2xl bg-sky-300 mb-1"
               style={{ cursor: "pointer" }}
             >
               <div
                 className=""
-                onClick={() => navigate(notificationMgs.onClickPath)}
+                onClick={() => navigate(notificationMsg.onClickPath)}
               >
-                {notificationMgs.message}
+                {notificationMsg.message}
               </div>
             </div>
           ))}
@@ -101,13 +102,13 @@ const NotificationPage = () => {
               Delete All Read
             </h4>
           </div>
-          {user?.seennotification.map((notificationMgs) => (
+          {user?.seennotification.map((notificationMsg) => (
             <div className="border text-base font-normal p-2 rounded-2xl bg-sky-300 mb-2">
               <div
                 className=""
-                onClick={() => navigate(notificationMgs.onClickPath)}
+                onClick={() => navigate(notificationMsg.onClickPath)}
               >
-                {notificationMgs.message}
+                {notificationMsg.message}
               </div>
             </div>
           ))}

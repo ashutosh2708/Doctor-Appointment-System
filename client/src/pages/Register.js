@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IconButton, TextField, InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { showLoading, hideLoading } from "../redux/features/alterSlice";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { message } from "antd";

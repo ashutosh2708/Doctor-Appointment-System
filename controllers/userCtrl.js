@@ -27,7 +27,7 @@ const registerController = async (req, res) => {
       message: `Register Controller ${error.message}`,
     });
   }
-};
+}; 
 
 // login callback
 const loginController = async (req, res) => {
@@ -79,14 +79,14 @@ const authController = async (req, res) => {
   }
 };
 
-// APpply DOctor CTRL
+// Apply Doctor CTRL
 const applyDoctorController = async (req, res) => {
   try {
     const newDoctor = await doctorModel({ ...req.body, status: "pending" });
     await newDoctor.save();
     const adminUser = await userModel.findOne({ isAdmin: true });
-    const notifcation = adminUser.notifcation;
-    notifcation.push({
+    const notification = adminUser.notification;
+    notification.push({
       type: "apply-doctor-request",
       message: `${newDoctor.firstName} ${newDoctor.lastName} has applied for a doctor account`,
       data: {
@@ -95,17 +95,17 @@ const applyDoctorController = async (req, res) => {
         onClickPath: "/admin/doctors",
       },
     });
-    await userModel.findByIdAndUpdate(adminUser._id, { notifcation });
+    await userModel.findByIdAndUpdate(adminUser._id, { notification });
     res.status(201).send({
       success: true,
-      message: "Doctor Account Applied SUccessfully",
+      message: "Doctor account applied successfully",
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
       error,
-      message: "Error While Applying For Doctor",
+      message: "Error while applying for doctor",
     });
   }
 };
@@ -115,10 +115,10 @@ const getAllNotificationController = async (req, res) => {
   try {
     const user = await userModel.findOne({ _id: req.body.userId });
     const seennotification = user.seennotification;
-    const notifcation = user.notifcation;
-    seennotification.push(...notifcation);
-    user.notifcation = [];
-    user.seennotification = notifcation;
+    const notification = user.notification;
+    seennotification.push(...notification);
+    user.notification = [];
+    user.seennotification = notification;
     const updatedUser = await user.save();
     res.status(200).send({
       success: true,
@@ -139,13 +139,13 @@ const getAllNotificationController = async (req, res) => {
 const deleteAllNotificationController = async (req, res) => {
   try {
     const user = await userModel.findOne({ _id: req.body.userId });
-    user.notifcation = [];
+    user.notification = [];
     user.seennotification = [];
     const updatedUser = await user.save();
     updatedUser.password = undefined;
     res.status(200).send({
       success: true,
-      message: "Notifications Deleted successfully",
+      message: "Notifications Deleted Successfully",
       data: updatedUser,
     });
   } catch (error) {
@@ -164,7 +164,7 @@ const getAllDocotrsController = async (req, res) => {
     const doctors = await doctorModel.find({ status: "approved" });
     res.status(200).send({
       success: true,
-      message: "Doctors Lists Fetched Successfully",
+      message: "Doctors lists fetched successfully",
       data: doctors,
     });
   } catch (error) {
@@ -172,7 +172,7 @@ const getAllDocotrsController = async (req, res) => {
     res.status(500).send({
       success: false,
       error,
-      message: "Error While Fetching Doctor",
+      message: "Error while fetching doctor",
     });
   }
 };
@@ -186,7 +186,7 @@ const bookeAppointmnetController = async (req, res) => {
     const newAppointment = new appointmentModel(req.body);
     await newAppointment.save();
     const user = await userModel.findOne({ _id: req.body.doctorInfo.userId });
-    user.notifcation.push({
+    user.notification.push({
       type: "New-appointment-request",
       message: `A new appointment request from ${req.body.userInfo.name}`,
       onCLickPath: "/user/appointments",
@@ -194,14 +194,14 @@ const bookeAppointmnetController = async (req, res) => {
     await user.save();
     res.status(200).send({
       success: true,
-      message: "Appointment Book Succesfully",
+      message: "Appointment book succesfully",
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
       error,
-      message: "Error While Booking Appointment",
+      message: "Error while booking appointment",
     });
   }
 };
@@ -209,7 +209,7 @@ const bookeAppointmnetController = async (req, res) => {
 // booking bookingAvailabilityController
 const bookingAvailabilityController = async (req, res) => {
   try {
-    const date = moment(req.body.date, "DD-MM-YY").toISOString();
+    const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
     const fromTime = moment(req.body.time, "HH:mm")
       .subtract(1, "hours")
       .toISOString();
@@ -239,7 +239,7 @@ const bookingAvailabilityController = async (req, res) => {
     res.status(500).send({
       success: false,
       error,
-      message: "Error In Booking",
+      message: "Error in booking",
     });
   }
 };
@@ -251,7 +251,7 @@ const userAppointmentsController = async (req, res) => {
     });
     res.status(200).send({
       success: true,
-      message: "Users Appointments Fetch Successfully",
+      message: "Users appointments fetch successfully",
       data: appointments,
     });
   } catch (error) {
@@ -259,7 +259,7 @@ const userAppointmentsController = async (req, res) => {
     res.status(500).send({
       success: false,
       error,
-      message: "Error In User Appointments",
+      message: "Error in user appointments",
     });
   }
 };

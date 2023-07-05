@@ -61,14 +61,14 @@ const Doctors = () => {
       dataIndex: "status",
     },
     {
-      title: "phone",
+      title: "Mobile No.",
       dataIndex: "phone",
     },
     {
       title: "Actions",
       dataIndex: "actions",
       render: (text, record) => (
-        <div className="d-flex">
+        <div className="flex">
           {record.status === "pending" ? (
             <button
               className="btn btn-success"

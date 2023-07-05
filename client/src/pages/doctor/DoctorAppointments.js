@@ -45,7 +45,7 @@ const DoctorAppointments = () => {
       }
     } catch (error) {
       console.log(error);
-      message.error("Something Went Wrong");
+      message.error("Something went wrong");
     }
   };
 
@@ -72,9 +72,9 @@ const DoctorAppointments = () => {
       title: "Actions",
       dataIndex: "actions",
       render: (text, record) => (
-        <div className="d-flex">
+        <div className="flex">
           {record.status === "pending" && (
-            <div className="d-flex">
+            <div className="flex">
               <button
                 className="btn btn-success"
                 onClick={() => handleStatus(record, "approved")}
@@ -82,7 +82,7 @@ const DoctorAppointments = () => {
                 Approved
               </button>
               <button
-                className="btn btn-danger ms-2"
+                className="btn btn-danger ml-2"
                 onClick={() => handleStatus(record, "reject")}
               >
                 Reject

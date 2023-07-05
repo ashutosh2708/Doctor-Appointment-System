@@ -4,7 +4,7 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { Col, Form, Input, Row, TimePicker, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { showLoading, hideLoading } from "../../redux/features/alterSlice";
+import { showLoading, hideLoading } from "../../redux/features/alertSlice";
 import moment from "moment";
 
 const Profile = () => {
@@ -13,7 +13,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
-  // update doc ==========
+  // update doc
   //handle form
   const handleFinish = async (values) => {
     try {
@@ -44,10 +44,10 @@ const Profile = () => {
     } catch (error) {
       dispatch(hideLoading());
       console.log(error);
-      message.error("Somthing Went Wrrong ");
+      message.error("Somthing went wrong ");
     }
   };
-  // update doc ==========
+  // update doc
 
   //getDOc Details
   const getDoctorInfo = async () => {
@@ -115,12 +115,12 @@ const Profile = () => {
             </Col>
             <Col xs={24} md={24} lg={8}>
               <Form.Item
-                label="Phone No"
+                label="Mobile No."
                 name="phone"
                 required
                 rules={[{ required: true }]}
               >
-                <Input type="number" placeholder="your contact no" />
+                <Input type="text" placeholder="your mobile number" />
               </Form.Item>
             </Col>
             <Col xs={24} md={24} lg={8}>
@@ -168,17 +168,17 @@ const Profile = () => {
                 required
                 rules={[{ required: true }]}
               >
-                <Input type="number" placeholder="your experience" />
+                <Input type="text" placeholder="your experience" />
               </Form.Item>
             </Col>
             <Col xs={24} md={24} lg={8}>
               <Form.Item
-                label="Fees Per Cunsaltation"
+                label="Fees Per Cunsultation"
                 name="feesPerCunsaltation"
                 required
                 rules={[{ required: true }]}
               >
-                <Input type="number" placeholder="your contact no" />
+                <Input type="text" placeholder="your fees" />
               </Form.Item>
             </Col>
             <Col xs={24} md={24} lg={8}>
@@ -186,9 +186,11 @@ const Profile = () => {
                 <TimePicker.RangePicker format="HH:mm" />
               </Form.Item>
             </Col>
-            <Col xs={24} md={24} lg={8}></Col>
             <Col xs={24} md={24} lg={8}>
-              <button className="btn btn-primary form-btn" type="submit">
+              <button
+                className="btn btn-primary form-btn bg-blue-700"
+                type="submit"
+              >
                 Update
               </button>
             </Col>

@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; 
 import { adminMenu, userMenu } from "../Data/data";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
     navigate("/login");
   };
 
-  // =========== doctor menu ===============
+  //doctor menu
   const doctorMenu = [
     {
       name: "Home",
@@ -31,14 +31,12 @@ const Layout = ({ children }) => {
       path: "/doctor-appointments",
       icon: "fa-solid fa-list",
     },
-
     {
       name: "Profile",
       path: `/doctor/profile/${user?._id}`,
       icon: "fa-solid fa-user",
     },
   ];
-  // =========== doctor menu ===============
 
   // redering menu list
   const SidebarMenu = user?.isAdmin
@@ -48,7 +46,7 @@ const Layout = ({ children }) => {
     : userMenu;
   return (
     <>
-      <div className="p-2">
+      <div className="p-2 h-screen">
         <div className="flex">
           <div className="w-40 md:w-80 rounded-md bg-gray-800 shadow-md shadow-gray-700 mr-3 text-white">
             <div className="flex items-center justify-center h-16">
@@ -86,7 +84,7 @@ const Layout = ({ children }) => {
                   color="inherit"
                 >
                   <Badge
-                    badgeContent={user && user.notifcation.length}
+                    badgeContent={user && user.notification.length}
                     onClick={() => {
                       navigate("/notification");
                     }}
@@ -111,7 +109,7 @@ const Layout = ({ children }) => {
                 </Link>
               </div>
             </div>
-            <div className="shadow-lg shadow-gray-700 bg-white">
+            <div className="h-screen shadow-lg shadow-gray-700 bg-white">
               {children}
             </div>
           </div>
