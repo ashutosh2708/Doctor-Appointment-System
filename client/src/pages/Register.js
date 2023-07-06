@@ -5,9 +5,22 @@ import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { message } from "antd";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import * as Yup from "yup";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
+const schema = Yup.object({
+  name: Yup.string()
+    .required("Name is required")
+    .matches(
+      /^[a-zA-Z0-9]+$/,
+      "This field cannot contain white space and special character"
+    )
+    .min(6, "Mininum 4 characters")
+    .max(20, "Maximum 10 characters"),
+});
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,7 +29,20 @@ const Register = () => {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const { register, handleSubmit } = useForm();
+  const defaultValues = {
+    departmentName: "",
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(schema),
+    defaultValues,
+  });
 
   //form handler
   const onSubmit = async (values) => {
@@ -25,6 +51,7 @@ const Register = () => {
       const res = await axios.post("/api/v1/user/register", values);
       dispatch(hideLoading());
       if (res.data.success) {
+        reset(defaultValues);
         message.success("Register Successfully!");
         navigate("/login");
       } else {
@@ -88,6 +115,8 @@ const Register = () => {
                       name="name"
                       autoComplete="name"
                       {...register("name")}
+                      error={Boolean(errors.name)}
+                      helperText={errors.name?.message}
                     />
                   </div>
                   <div className="mt-6">
@@ -142,7 +171,7 @@ const Register = () => {
                 </form>
 
                 <p className="mt-6 text-sm text-center text-gray-400">
-                  Already have an account?{" "} 
+                  Already have an account?{" "}
                   <span
                     className="text-blue-500 focus:outline-none cursor-pointer focus:underline hover:underline"
                     onClick={() => {

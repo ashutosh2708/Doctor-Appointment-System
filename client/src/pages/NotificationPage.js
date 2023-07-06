@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/Layout";
+import Sidebar from "../components/Sidebar";
 import { message, Tabs } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
@@ -66,55 +66,56 @@ const NotificationPage = () => {
   };
   const { TabPane } = Tabs;
   return (
-    <Layout>
-    <div className="h-screen p-2">
-      <h4 className="p-3 text-center text-xl font-semibold">
-        Notification Page
-      </h4>
-      <Tabs className="mx-2">
-        <TabPane tab="Unread" key={0}>
-          <div className="flex cursor-pointer justify-content-end">
-            <h4 className="p-2" onClick={handleMarkAllRead}>
-              Mark All Read
-            </h4>
-          </div>
-          {user?.notification.map((notificationMsg) => (
-            <div
-              className="border text-base font-normal p-2 rounded-2xl bg-sky-300 mb-1"
-              style={{ cursor: "pointer" }}
-            >
-              <div
-                className=""
-                onClick={() => navigate(notificationMsg.onClickPath)}
-              >
-                {notificationMsg.message}
-              </div>
+    <Sidebar>
+      <div className="h-screen p-2">
+        <h4 className="p-3 text-center text-xl font-semibold">
+          Notification Page
+        </h4>
+        <Tabs className="mx-2">
+          <TabPane tab="Unread" key={0}>
+            <div className="flex cursor-pointer justify-content-end">
+              <h4 className="p-2" onClick={handleMarkAllRead}>
+                Mark All Read
+              </h4>
             </div>
-          ))}
-        </TabPane>
-        <TabPane tab="Read" key={1}>
-          <div className="flex justify-content-end">
-            <h4
-              className="p-2"
-              style={{ cursor: "pointer" }}
-              onClick={handleDeleteAllRead}
-            >
-              Delete All Read
-            </h4>
-          </div>
-          {user?.seennotification.map((notificationMsg) => (
-            <div className="border text-base font-normal p-2 rounded-2xl bg-sky-300 mb-2">
+            {user?.notification.map((notificationMsg) => (
               <div
-                className=""
-                onClick={() => navigate(notificationMsg.onClickPath)}
+                className="border text-base font-normal p-2 rounded-2xl bg-sky-300 mb-1"
+                style={{ cursor: "pointer" }}
               >
-                {notificationMsg.message}
+                <div
+                  className=""
+                  onClick={() => navigate(notificationMsg.onClickPath)}
+                >
+                  {notificationMsg.message}
+                </div>
               </div>
+            ))}
+          </TabPane>
+          <TabPane tab="Read" key={1}>
+            <div className="flex justify-content-end">
+              <h4
+                className="p-2"
+                style={{ cursor: "pointer" }}
+                onClick={handleDeleteAllRead}
+              >
+                Delete All Read
+              </h4>
             </div>
-          ))}
-        </TabPane>
-      </Tabs></div>
-    </Layout>
+            {user?.seennotification.map((notificationMsg) => (
+              <div className="border text-base font-normal p-2 rounded-2xl bg-sky-300 mb-2">
+                <div
+                  className=""
+                  onClick={() => navigate(notificationMsg.onClickPath)}
+                >
+                  {notificationMsg.message}
+                </div>
+              </div>
+            ))}
+          </TabPane>
+        </Tabs>
+      </div>
+    </Sidebar>
   );
 };
 

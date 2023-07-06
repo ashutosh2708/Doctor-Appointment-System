@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../components/Layout";
+import Sidebar from "../../components/Sidebar";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { Col, Form, Input, Row, TimePicker, message } from "antd";
@@ -74,7 +74,8 @@ const Profile = () => {
     //eslint-disable-next-line
   }, []);
   return (
-    <Layout>
+    <Sidebar>
+      <div className="bg-white">
       <h1 className="flex justify-center py-3 text-lg font-medium">
         Manage Profile
       </h1>
@@ -197,7 +198,8 @@ const Profile = () => {
           </Row>
         </Form>
       )}
-    </Layout>
+      </div>
+    </Sidebar>
   );
 };
 

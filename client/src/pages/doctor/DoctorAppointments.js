@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Layout from "../../components/Layout";
+import Sidebar from "../../components/Sidebar";
 
 import axios from "axios";
 
@@ -94,12 +94,18 @@ const DoctorAppointments = () => {
     },
   ];
   return (
-    <Layout>
+    <Sidebar>
+    <div className="p-2">
       <h1 className="flex justify-center py-3 text-lg font-medium">
         Appointments Lists
       </h1>
-      <Table size="small" scroll={{ y: "50vh" }} columns={columns} dataSource={appointments} />
-    </Layout>
+      <Table
+        size="small"
+        scroll={{ y: "50vh" }}
+        columns={columns}
+        dataSource={appointments}
+      /></div>
+    </Sidebar>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Layout from "../../components/Layout";
 import axios from "axios";
 import { message, Table } from "antd";
+import Sidebar from "../../components/Sidebar";
 
 const Doctors = () => {
   const [doctors, setDoctors] = useState([]);
@@ -85,10 +85,15 @@ const Doctors = () => {
   ];
 
   return (
-    <Layout>
+    <Sidebar>
       <h1 className="p-3 text-center text-xl font-semibold">All Doctors</h1>
-      <Table size="small" scroll={{ y: "50vh" }} columns={columns} dataSource={doctors} />
-    </Layout>
+      <Table
+        size="small"
+        scroll={{ y: "50vh" }}
+        columns={columns}
+        dataSource={doctors}
+      />
+    </Sidebar>
   );
 };
 

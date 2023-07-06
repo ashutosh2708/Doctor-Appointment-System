@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Layout from "../components/Layout";
+import Sidebar from "../components/Sidebar";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { DatePicker, message, TimePicker } from "antd";
@@ -99,7 +99,7 @@ const BookingPage = () => {
     //eslint-disable-next-line
   }, []);
   return (
-    <Layout>
+    <Sidebar>
       <div className="h-screen">
         <h3 className="flex justify-center py-3 text-lg font-medium">
           Booking Page
@@ -160,7 +160,7 @@ const BookingPage = () => {
           </div>
         )}
       </div>
-    </Layout>
+    </Sidebar>
   );
 };
 

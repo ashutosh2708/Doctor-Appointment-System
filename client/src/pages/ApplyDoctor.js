@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/Layout";
+import Sidebar from "../components/Sidebar";
 import { Col, Form, Input, Row, TimePicker, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -46,7 +46,7 @@ const ApplyDoctor = () => {
     }
   };
   return (
-    <Layout>
+    <Sidebar>
       <h1 className="flex justify-center py-3 text-lg font-medium">
         Apply Doctor
       </h1>
@@ -147,13 +147,16 @@ const ApplyDoctor = () => {
             </Form.Item>
           </Col>
           <Col xs={24} md={24} lg={8}>
-            <button className="btn btn-primary form-btn bg-blue-700" type="submit">
+            <button
+              className="btn btn-primary form-btn bg-blue-700"
+              type="submit"
+            >
               Submit
             </button>
           </Col>
         </Row>
       </Form>
-    </Layout>
+    </Sidebar>
   );
 };
 

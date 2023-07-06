@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Layout from "../components/Layout";
+import Sidebar from "../components/Sidebar";
 import moment from "moment";
 import { Table } from "antd";
 
@@ -62,12 +62,17 @@ const Appointments = () => {
   ];
 
   return (
-    <Layout>
+    <Sidebar>
       <h1 className="flex justify-center py-3 text-lg font-medium">
         Appointments Lists
       </h1>
-      <Table size="small" scroll={{ y: "50vh" }} columns={columns} dataSource={appointments} />
-    </Layout>
+      <Table
+        size="small"
+        scroll={{ y: "50vh" }}
+        columns={columns}
+        dataSource={appointments}
+      />
+    </Sidebar>
   );
 };
 
