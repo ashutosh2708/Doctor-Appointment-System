@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Sidebar";
-
 import axios from "axios";
-
 import moment from "moment";
 import { message, Table } from "antd";
+import { Box, styled } from "@mui/material";
+import Navbar from "../../components/Navbar";
 
 const DoctorAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -93,19 +93,36 @@ const DoctorAppointments = () => {
       ),
     },
   ];
+
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+  }));
+
   return (
-    <Sidebar>
-    <div className="p-2">
-      <h1 className="flex justify-center py-3 text-lg font-medium">
-        Appointments Lists
-      </h1>
-      <Table
-        size="small"
-        scroll={{ y: "50vh" }}
-        columns={columns}
-        dataSource={appointments}
-      /></div>
-    </Sidebar>
+    <div className="min-h-screen bg-[#ECEFF1]">
+      <Box>
+        <Navbar />
+        <Box sx={{ display: "flex" }}>
+          <Sidebar />
+          <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
+            <DrawerHeader />
+            <h1 className="flex justify-center py-3 text-lg font-medium">
+              Appointments Lists
+            </h1>
+            <Table
+              size="small"
+              scroll={{ y: "50vh" }}
+              columns={columns}
+              dataSource={appointments}
+            />
+          </Box>
+        </Box>
+      </Box>
+    </div>
   );
 };
 

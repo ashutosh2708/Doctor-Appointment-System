@@ -1,24 +1,81 @@
-import React, { useState } from "react";
+import React from "react";
 import { adminMenu, userMenu } from "../Data/data";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { message } from "antd";
-import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import Badge from "@mui/material/Badge";
-import IconButton from "@mui/material/IconButton";
+import MuiDrawer from "@mui/material/Drawer";
+import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import ListIcon from "@mui/icons-material/List";
 import PersonIcon from "@mui/icons-material/Person";
-import LogoutIcon from "@mui/icons-material/Logout";
+// import MenuIcon from "@mui/icons-material/Menu";
+import {
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import { styled, useTheme } from "@mui/material/styles";
+import { useAppStore } from "../appStore";
 
-const Sidebar = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+const drawerWidth = 240;
+
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: "hidden",
+});
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: "hidden",
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+}));
+
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
+
+const Sidebar = () => {
+  // eslint-disable-next-line
+  const theme = useTheme();
+  const open = useAppStore((state) => state.dopen);
   const { user } = useSelector((state) => state.user);
   const location = useLocation();
   const navigate = useNavigate();
+
   // logout funtion
   const handleLogout = () => {
     localStorage.clear();
@@ -51,103 +108,68 @@ const Sidebar = ({ children }) => {
     : user?.isDoctor
     ? doctorMenu
     : userMenu;
+
   return (
-    <>
-      <div className="flex">
-        <div
-          style={{ width: isOpen ? "200px" : "50px" }}
-          className="bg-[#111827] text-[#fff] h-screen w-52 transition-all mr-2"
-        >
-          <div className="flex items-center py-4 px-3">
-            <h1
-              style={{ display: isOpen ? "block" : "none" }}
-              className="text-xl"
-            >
-              DOC APP
-            </h1>
-            <div
-              style={{ marginLeft: isOpen ? "50px" : "0px" }}
-              className="flex text-xl ml-12 cursor-pointer"
-            >
-              <MenuIcon onClick={toggle} />
-            </div>
-          </div>
-          {SidebarMenu.map((menu, index) => {
-            const isActive = location.pathname === menu.path;
-            return (
+    <Drawer variant="permanent" open={open}>
+      <DrawerHeader>
+        {/* <IconButton onClick={() => setOpen(!open)}>
+         <MenuIcon />
+        </IconButton> */}
+      </DrawerHeader>
+      <Divider />
+      {SidebarMenu.map((menu, index) => {
+        const isActive = location.pathname === menu.path;
+        return (
+          <>
+            <List>
               <Link
                 to={menu.path}
                 key={index}
-                className={`flex text-white py-3 px-3 gap-4 transition-all ${
-                  isActive && "bg-slate-700"
+                className={`flex text-gray-700 transition-all ${
+                  isActive && "bg-slate-500 text-white"
                 }`}
               >
-                <div className="text-xl">{menu.icon}</div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="text-xl"
-                >
-                  {menu.name}
-                </div>
+                <ListItem disablePadding sx={{ display: "block" }}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: "left",
+                      paddingRight: 15,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 0 : 5,
+                        justifyContent: "center",
+                      }}
+                    >
+                      {menu.icon}
+                    </ListItemIcon>
+                    <ListItemText sx={{ opacity: open ? 1 : 0 }} />
+                    {menu.name}
+                  </ListItemButton>
+                </ListItem>
               </Link>
-            );
-          })}
-          <Link
-            to="/login"
-            className={`flex text-white py-3 px-3 gap-4 transition-all`}
-            onClick={handleLogout}
-          >
-            <div className="text-xl">
-              <LogoutIcon />
-            </div>
-            <div
-              style={{ display: isOpen ? "block" : "none" }}
-              className="text-xl"
-            >
-              Log out
-            </div>
-          </Link>
-        </div>
-        <div className="w-full">
-          <div className="flex items-center justify-end h-16 shadow-lg mb-2 bg-white">
-            <div>
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"                
-                onClick={() => {
-                  navigate("/notification");
-                }}
-              >
-                <Badge
-                  badgeContent={user && user.notification.length}
-                  color="error"
-                >
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-            </div>
-            <div className="mr-4 text-lg">
-              <Link to="/profile">
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                {user?.name}
-              </Link>
-            </div>
+            </List>
+          </>
+        );
+      })}
+      <List>
+        <Link
+          to="/login"
+          className={`flex text-gray-700 transition-all`}
+          onClick={handleLogout}
+        >
+          <div className="text-xl">
+            <LogoutIcon />
           </div>
-          <div className="w-full h-screen shadow-lg shadow-gray-700 bg-white">
-            {children}
+          <div style={{ display: open ? "block" : "none" }} className="text-xl">
+            Log out
           </div>
-        </div>
-      </div>
-    </>
+        </Link>
+      </List>
+    </Drawer>
   );
 };
 

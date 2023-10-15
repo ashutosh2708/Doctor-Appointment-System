@@ -3,6 +3,8 @@ import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import moment from "moment";
 import { Table } from "antd";
+import { Box, styled } from "@mui/material";
+import Navbar from "../components/Navbar";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -61,18 +63,35 @@ const Appointments = () => {
     },
   ];
 
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+  }));
+
   return (
-    <Sidebar>
-      <h1 className="flex justify-center py-3 text-lg font-medium">
-        Appointments Lists
-      </h1>
-      <Table
-        size="small"
-        scroll={{ y: "50vh" }}
-        columns={columns}
-        dataSource={appointments}
-      />
-    </Sidebar>
+    <div className="min-h-screen bg-[#ECEFF1]">
+      <Box>
+        <Navbar />
+        <Box sx={{ display: "flex" }}>
+          <Sidebar />
+          <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
+            <DrawerHeader />
+            <h1 className="flex justify-center py-3 text-lg font-medium">
+              Appointments Lists
+            </h1>
+            <Table
+              size="small"
+              scroll={{ y: "50vh" }}
+              columns={columns}
+              dataSource={appointments}
+            />
+          </Box>
+        </Box>
+      </Box>
+    </div>
   );
 };
 

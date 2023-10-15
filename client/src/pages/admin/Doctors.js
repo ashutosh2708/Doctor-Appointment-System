@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { message, Table } from "antd";
 import Sidebar from "../../components/Sidebar";
+import { Box, styled } from "@mui/material";
+import Navbar from "../../components/Navbar";
 
 const Doctors = () => {
   const [doctors, setDoctors] = useState([]);
@@ -84,16 +86,35 @@ const Doctors = () => {
     },
   ];
 
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+  }));
+
   return (
-    <Sidebar>
-      <h1 className="p-3 text-center text-xl font-semibold">All Doctors</h1>
-      <Table
-        size="small"
-        scroll={{ y: "50vh" }}
-        columns={columns}
-        dataSource={doctors}
-      />
-    </Sidebar>
+    <div className="min-h-screen bg-[#ECEFF1]">
+      <Box>
+        <Navbar />
+        <Box sx={{ display: "flex" }}>
+          <Sidebar />
+          <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
+            <DrawerHeader />
+            <h1 className="p-3 text-center text-xl font-semibold">
+              All Doctors
+            </h1>
+            <Table
+              size="small"
+              scroll={{ y: "50vh" }}
+              columns={columns}
+              dataSource={doctors}
+            />
+          </Box>
+        </Box>
+      </Box>
+    </div>
   );
 };
 

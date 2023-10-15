@@ -18,8 +18,8 @@ const schema = Yup.object({
       /^[a-zA-Z0-9]+$/,
       "This field cannot contain white space and special character"
     )
-    .min(6, "Mininum 4 characters")
-    .max(20, "Maximum 10 characters"),
+    .min(4, "Mininum 4 characters")
+    .max(10, "Maximum 10 characters"),
 });
 
 const Register = () => {

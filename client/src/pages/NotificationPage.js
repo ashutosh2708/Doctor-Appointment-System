@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Box, styled } from "@mui/material";
+import Navbar from "../components/Navbar";
 
 const NotificationPage = () => {
   const dispatch = useDispatch();
@@ -64,58 +66,75 @@ const NotificationPage = () => {
       message.error("Somthing went wrong in notifications");
     }
   };
+
   const { TabPane } = Tabs;
+
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+  }));
+
   return (
-    <Sidebar>
-      <div className="h-screen p-2">
-        <h4 className="p-3 text-center text-xl font-semibold">
-          Notification Page
-        </h4>
-        <Tabs className="mx-2">
-          <TabPane tab="Unread" key={0}>
-            <div className="flex cursor-pointer justify-content-end">
-              <h4 className="p-2" onClick={handleMarkAllRead}>
-                Mark All Read
-              </h4>
-            </div>
-            {user?.notification.map((notificationMsg) => (
-              <div
-                className="border text-base font-normal p-2 rounded-2xl bg-sky-300 mb-1"
-                style={{ cursor: "pointer" }}
-              >
-                <div
-                  className=""
-                  onClick={() => navigate(notificationMsg.onClickPath)}
-                >
-                  {notificationMsg.message}
+    <div className="min-h-screen bg-[#ECEFF1]">
+      <Box>
+        <Navbar />
+        <Box sx={{ display: "flex" }}>
+          <Sidebar />
+          <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
+            <DrawerHeader />
+            <h4 className="p-3 text-center text-xl font-semibold">
+              Notification Page
+            </h4>
+            <Tabs className="mx-2">
+              <TabPane tab="Unread" key={0}>
+                <div className="flex cursor-pointer justify-content-end">
+                  <h4 className="p-2" onClick={handleMarkAllRead}>
+                    Mark All Read
+                  </h4>
                 </div>
-              </div>
-            ))}
-          </TabPane>
-          <TabPane tab="Read" key={1}>
-            <div className="flex justify-content-end">
-              <h4
-                className="p-2"
-                style={{ cursor: "pointer" }}
-                onClick={handleDeleteAllRead}
-              >
-                Delete All Read
-              </h4>
-            </div>
-            {user?.seennotification.map((notificationMsg) => (
-              <div className="border text-base font-normal p-2 rounded-2xl bg-sky-300 mb-2">
-                <div
-                  className=""
-                  onClick={() => navigate(notificationMsg.onClickPath)}
-                >
-                  {notificationMsg.message}
+                {user?.notification.map((notificationMsg) => (
+                  <div
+                    className="border text-base font-normal p-2 rounded-2xl bg-sky-300 mb-1"
+                    style={{ cursor: "pointer" }}
+                  >
+                    <div
+                      className=""
+                      onClick={() => navigate(notificationMsg.onClickPath)}
+                    >
+                      {notificationMsg.message}
+                    </div>
+                  </div>
+                ))}
+              </TabPane>
+              <TabPane tab="Read" key={1}>
+                <div className="flex justify-content-end">
+                  <h4
+                    className="p-2"
+                    style={{ cursor: "pointer" }}
+                    onClick={handleDeleteAllRead}
+                  >
+                    Delete All Read
+                  </h4>
                 </div>
-              </div>
-            ))}
-          </TabPane>
-        </Tabs>
-      </div>
-    </Sidebar>
+                {user?.seennotification.map((notificationMsg) => (
+                  <div className="border text-base font-normal p-2 rounded-2xl bg-sky-300 mb-2">
+                    <div
+                      className=""
+                      onClick={() => navigate(notificationMsg.onClickPath)}
+                    >
+                      {notificationMsg.message}
+                    </div>
+                  </div>
+                ))}
+              </TabPane>
+            </Tabs>
+          </Box>
+        </Box>
+      </Box>
+    </div>
   );
 };
 

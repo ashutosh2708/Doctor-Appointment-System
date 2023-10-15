@@ -6,6 +6,8 @@ import { DatePicker, message, TimePicker } from "antd";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
+import { Box, styled } from "@mui/material";
+import Navbar from "../components/Navbar";
 
 const BookingPage = () => {
   const { user } = useSelector((state) => state.user);
@@ -98,69 +100,85 @@ const BookingPage = () => {
     getUserData();
     //eslint-disable-next-line
   }, []);
+
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+  }));
+
   return (
-    <Sidebar>
-      <div className="h-screen">
-        <h3 className="flex justify-center py-3 text-lg font-medium">
-          Booking Page
-        </h3>
-        {doctors && (
-          <div className="w-75% grid px-6 mt-2 md:w-full md:px-64">
-            <div className="border w-75% p-4 shadow-md rounded-lg md:w-full md:px-52">
-              <div className="flex justify-center mb-4">
-                <h4 className="text-lg font-semibold">
-                  Dr. {doctors.firstName} {doctors.lastName}
-                </h4>
-              </div>
-              <div className="grid gap-2">
-                <div className="">
-                  <h4 className="">Fees : {doctors.feesPerCunsaltation}</h4>
+    <div className="min-h-screen bg-[#ECEFF1]">
+      <Box>
+        <Navbar />
+        <Box sx={{ display: "flex" }}>
+          <Sidebar />
+          <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
+            <DrawerHeader />
+            <h3 className="flex justify-center py-3 text-lg font-medium">
+              Booking Page
+            </h3>
+            {doctors && (
+              <div className="w-75% grid px-6 mt-2 md:w-full md:px-64">
+                <div className="border w-75% p-4 shadow-md rounded-lg md:w-full md:px-52">
+                  <div className="flex justify-center mb-4">
+                    <h4 className="text-lg font-semibold">
+                      Dr. {doctors.firstName} {doctors.lastName}
+                    </h4>
+                  </div>
+                  <div className="grid gap-2">
+                    <div className="">
+                      <h4 className="">Fees : {doctors.feesPerCunsaltation}</h4>
+                    </div>
+                    <div className="">
+                      <h4>
+                        Timings : {doctors.timings && doctors.timings[0]} -{" "}
+                        {doctors.timings && doctors.timings[1]}{" "}
+                      </h4>
+                    </div>
+                    <div className="">
+                      <DatePicker
+                        aria-required={"true"}
+                        className="w-full"
+                        format="DD-MM-YYYY"
+                        onChange={(value) => {
+                          setDate(moment(value).format("DD-MM-YYYY"));
+                        }}
+                      />
+                    </div>
+                    <div className="">
+                      <TimePicker
+                        aria-required={"true"}
+                        format="HH:mm"
+                        className="w-full"
+                        onChange={(value) => {
+                          setTime(moment(value).format("HH:mm"));
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-center mt-2">
+                    <button
+                      className="btn btn-primary"
+                      onClick={handleAvailability}
+                    >
+                      Check Availability
+                    </button>
+                  </div>
+                  <div className="flex justify-center mt-2">
+                    <button className="btn btn-success" onClick={handleBooking}>
+                      Book Now
+                    </button>
+                  </div>
                 </div>
-                <div className="">
-                  <h4>
-                    Timings : {doctors.timings && doctors.timings[0]} -{" "}
-                    {doctors.timings && doctors.timings[1]}{" "}
-                  </h4>
-                </div>
-                <div className="">
-                  <DatePicker
-                    aria-required={"true"}
-                    className="w-full"
-                    format="DD-MM-YYYY"
-                    onChange={(value) => {
-                      setDate(moment(value).format("DD-MM-YYYY"));
-                    }}
-                  />
-                </div>
-                <div className="">
-                  <TimePicker
-                    aria-required={"true"}
-                    format="HH:mm"
-                    className="w-full"
-                    onChange={(value) => {
-                      setTime(moment(value).format("HH:mm"));
-                    }}
-                  />
-                </div>
               </div>
-              <div className="flex justify-center mt-2">
-                <button
-                  className="btn btn-primary"
-                  onClick={handleAvailability}
-                >
-                  Check Availability
-                </button>
-              </div>
-              <div className="flex justify-center mt-2">
-                <button className="btn btn-success" onClick={handleBooking}>
-                  Book Now
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </Sidebar>
+            )}
+          </Box>
+        </Box>
+      </Box>
+    </div>
   );
 };
 

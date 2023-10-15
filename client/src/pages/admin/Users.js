@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import axios from "axios";
 import { Table } from "antd";
+import { Box, styled } from "@mui/material";
+import Navbar from "../../components/Navbar";
 const Users = () => {
   const [users, setUsers] = useState([]);
 
@@ -51,18 +53,35 @@ const Users = () => {
     },
   ];
 
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+  }));
+
   return (
-    <Sidebar>
-      <h1 className="flex justify-center py-3 text-lg font-medium">
-        Users List
-      </h1>
-      <Table
-        size="small"
-        scroll={{ y: "50vh" }}
-        columns={columns}
-        dataSource={users}
-      />
-    </Sidebar>
+    <div className="min-h-screen bg-[#ECEFF1]">
+      <Box>
+        <Navbar />
+        <Box sx={{ display: "flex" }}>
+          <Sidebar />
+          <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
+            <DrawerHeader />
+            <h1 className="flex justify-center py-3 text-lg font-medium">
+              Users List
+            </h1>
+            <Table
+              size="small"
+              scroll={{ y: "50vh" }}
+              columns={columns}
+              dataSource={users}
+            />
+          </Box>
+        </Box>
+      </Box>
+    </div>
   );
 };
 
