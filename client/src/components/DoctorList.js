@@ -13,7 +13,7 @@ const DoctorList = ({ doctor }) => {
         <h2 className="font-medium text-lg text-gray-900 mb-2 text-center">
           Dr. {doctor.firstName} {doctor.lastName}
           </h2>
-        <div className="">
+        <div>
           <h5 className="mb-2">
             <b>Specialization</b> - {doctor.specialization}
           </h5>

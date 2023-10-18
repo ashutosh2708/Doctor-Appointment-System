@@ -8,7 +8,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import ListIcon from "@mui/icons-material/List";
 import PersonIcon from "@mui/icons-material/Person";
-// import MenuIcon from "@mui/icons-material/Menu";
 import {
   Divider,
   List,
@@ -112,9 +111,6 @@ const Sidebar = () => {
   return (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader>
-        {/* <IconButton onClick={() => setOpen(!open)}>
-         <MenuIcon />
-        </IconButton> */}
       </DrawerHeader>
       <Divider />
       {SidebarMenu.map((menu, index) => {

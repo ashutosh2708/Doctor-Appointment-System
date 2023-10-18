@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import { adminMenu, userMenu } from "../Data/data";
-// import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { message } from "antd";
 import MenuIcon from "@mui/icons-material/Menu";
-// import NotificationsIcon from "@mui/icons-material/Notifications";
-// import Badge from "@mui/material/Badge";
-// import IconButton from "@mui/material/IconButton";
 import HomeIcon from "@mui/icons-material/Home";
 import ListIcon from "@mui/icons-material/List";
 import PersonIcon from "@mui/icons-material/Person";
